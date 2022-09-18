@@ -6,6 +6,15 @@ exports.Text = async (req, res) => {
     return res.status(201).json({ error: false, data: data })
 }
 
+exports.CustomText = async (req, res) => {
+    const data = await WhatsAppInstances[req.query.key].sendCustomTextMessage(
+        req.body.id,
+        req.body.message
+    )
+    return res.status(201).json({ error: false, data: data })
+}
+
+
 exports.LinkPreviewText = async (req, res) => {
     const data = await WhatsAppInstances[req.query.key].sendLinkPreviewTextMessage(
         req.body.id,
