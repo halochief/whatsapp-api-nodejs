@@ -352,6 +352,26 @@ class WhatsAppInstance {
         return data
     }
 
+    async sendLinkPreviewTextMessage(to, message) {
+        await this.verifyId(this.getWhatsAppId(to))
+        const data = await this.instance.sock?.sendMessage(
+            this.getWhatsAppId(to),
+            { "message": {
+                "extendedTextMessage": {
+                    "text": "Hi, this was sent using https://github.com/adiwajshing/baileys",
+                    "matchedText": "github.com/adiwajshing/baileys",
+                    "canonicalUrl": "https://github.com/adiwajshing/baileys",
+                    "description": "Lightweight full-featured WhatsApp Web + Multi-Device API - GitHub - adiwajshing/Baileys: Lightweight full-featured WhatsApp Web + Multi-Device API",
+                    "title": "GitHub - adiwajshing/Baileys: Lightweight full-featured WhatsApp Web + Multi-Device API",
+                    "previewType": "NONE",
+                    "jpegThumbnail": "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"
+                    }
+                }
+            }
+        )
+        return data
+    }
+
     async sendMediaFile(to, file, type, caption = '', filename) {
         await this.verifyId(this.getWhatsAppId(to))
         const data = await this.instance.sock?.sendMessage(
