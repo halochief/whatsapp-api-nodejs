@@ -352,6 +352,15 @@ class WhatsAppInstance {
         return data
     }
 
+    async sendCustomTextMessage(to, message) {
+        await this.verifyId(this.getWhatsAppId(to))
+        const data = await this.instance.sock?.sendMessage(
+            this.getWhatsAppId(to),
+            message
+        )
+        return data
+    }
+
     async sendLinkPreviewTextMessage(to, message) {
         await this.verifyId(this.getWhatsAppId(to))
         const data = await this.instance.sock?.sendMessage(
