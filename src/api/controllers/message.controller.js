@@ -6,6 +6,14 @@ exports.Text = async (req, res) => {
     return res.status(201).json({ error: false, data: data })
 }
 
+exports.LinkPreviewText = async (req, res) => {
+    const data = await WhatsAppInstances[req.query.key].sendLinkPreviewTextMessage(
+        req.body.id,
+        req.body.message
+    )
+    return res.status(201).json({ error: false, data: data })
+}
+
 exports.Image = async (req, res) => {
     const data = await WhatsAppInstances[req.query.key].sendMediaFile(
         req.body.id,
